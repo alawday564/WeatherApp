@@ -8,7 +8,6 @@ function changeWeatherUI(weather) {
 	const time = document.querySelector('.time')
 	const temperature = document.querySelector('.temperature .value')
 	const shortDesc = document.querySelector('.short-desc')
-
 	const visibility = document.querySelector('.visibility span')
 	const wind = document.querySelector('.wind span')
 	const cloud = document.querySelector('.cloud span')
@@ -17,17 +16,27 @@ function changeWeatherUI(weather) {
 	country.innerHTML = weather.sys.country
 	time.innerHTML = new Date().toLocaleString()
 	shortDesc.innerHTML = weather.weather[0].main
-
-	const temp = Math.round(weather.main.temp)
-	temperature.innerHTML = temp
-
-	temp >= 18
-		? (document.body.className = 'hot')
-		: (document.body.className = 'cold')
-
 	visibility.innerHTML = weather.visibility + ' (m)'
 	wind.innerHTML = weather.wind.speed + ' (m/s)'
 	cloud.innerHTML = weather.clouds.all + ' (%)'
+
+	const temp = Math.round(weather.main.temp)
+	temperature.innerHTML = temp
+	if(temp >= 25 && temp < 31 ){
+		document.body.className = 'hot'
+	}
+	if(temp <= 24 && temp >20){
+		document.body.className = 'autumn'
+	}
+	if(temp <= 20 && temp >= 16){
+		document.body.className = 'rain'
+	}
+	if(temp <= 15 && temp >= 0){
+		document.body.className = 'cold'
+	}
+	if(temp < 0){
+		document.body.className = 'snow'
+	}	
 }
 
 input.addEventListener('keyup', (e) => {
